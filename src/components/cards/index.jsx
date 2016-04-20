@@ -21,7 +21,7 @@ export function Hand({ cards }) {
   return (
     <div className={Hand.Style}>
       {cards.map((card) => (
-        <Card rank={card.rank} suit={card.suit} />
+        <Card rank={card.rank} suit={card.suit} key={`${card.rank}${card.suit}`}/>
       ))}
     </div>
   );
