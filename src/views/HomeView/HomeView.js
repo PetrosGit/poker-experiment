@@ -110,7 +110,7 @@ class Hand extends React.Component{
       return (<Card ranks={item.ranks} suits={item.suits} />);
     };
 
-    return this.props.map(fullDeck, createHand);
+    return sample(fullDeck,5).map(createHand);
   }
 };
 
@@ -126,6 +126,7 @@ export class HomeView extends React.Component<void, Props, void> {
     return (
       <div className={classNames(playingCards, simpleCards, faceImages, rotateHand)}>
         <Card ranks='10' suits='clubs'></Card>
+        <Hand></Hand>
       </div>
     );
   }
