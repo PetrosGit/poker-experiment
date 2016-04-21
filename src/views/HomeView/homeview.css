@@ -1,0 +1,30 @@
+h1 {
+  color: #aaaaaa;
+  margin: 15px 0 15px;
+  text-align:center;
+  font-family: Verdana, sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+
+h4 {
+  color: #dddddd;
+  margin: 15px 150px 15px;
+  font-family: Verdana, sans-serif;
+  font-size: 18px;
+  font-weight: light;
+  font-style: italic;
+}
+.hands {
+  margin-left:350px;
+}
+
+.deckSpot{
+  margin-left:65px;
+
+
+}
+body{
+  background-image:url(/pokerbackground.jpg);
+}
