@@ -23,7 +23,6 @@ Hand.key = (card) => (
 Hand.classNames = classNames(
   classes.playingCards,
   classes.simpleCards,
-  classes.faceImages,
   classes.rotateHand,
 );
 
