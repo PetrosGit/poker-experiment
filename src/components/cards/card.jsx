@@ -1,8 +1,14 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import classNames from 'classnames';
 import classes from './cards.css';
 
-class Card extends React.Component {
+class Card extends Component {
+  static propTypes = {
+    rank: PropTypes.string,
+    suit: PropTypes.string,
+    back: PropTypes.bool,
+  };
+
   static className =  {
     front: (rank, suit) => classNames(
       classes.card,
