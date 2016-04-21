@@ -1,32 +1,35 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import Style from './cards.css';
+import classes from './cards.css';
 
 export function Card({ rank, suit, back }) {
   if (back === true) {
-    return (<div className={Card.Style.back}>*</div>);
+    return (<div className={Card.className.back} style={Card.style}>*</div>);
   } else {
     return (
-      <div className={Card.Style.front(rank, suit)}>
-        <span className={Style.rank}>{rank}</span>
-        <span className={Style.suit}></span>
+      <div className={Card.className.front(rank, suit)} style={Card.style}>
+        <span className={classes.rank}>{rank}</span>
+        <span className={classes.suit}></span>
       </div>
     );
   }
 }
 
-Card.Style =  {
+Card.className =  {
   front: (rank, suit) => classNames(
-    Style.card,
-    Style['rank-' + rank.toLowerCase()],
-    Style[suit],
+    classes.card,
+    classes['rank-' + rank.toLowerCase()],
+    classes[suit],
   ),
-  back: classNames(Style.card, Style.back),
+  back: classNames(classes.card, classes.back),
+};
+
+Card.style = {
 };
 
 export function Hand({ cards }) {
   return (
-    <div className={Hand.Style}>
+    <div className={Hand.classNames} style={ Hand.style }>
       {cards.map((card) => {
         const key = card.back ? Hand.BackKeyCount++ : card.rank + card.suit;
         return (
@@ -39,9 +42,14 @@ export function Hand({ cards }) {
 
 Hand.BackKeyCount = 0;
 
-Hand.Style = classNames(
-  Style.playingCards,
-  Style.simpleCards,
-  Style.faceImages,
-  Style.rotateHand,
+Hand.classNames = classNames(
+  classes.playingCards,
+  classes.simpleCards,
+  classes.faceImages,
+  classes.rotateHand,
 );
+
+Hand.style = {
+  display: 'flex',
+  justifyContent: 'center',
+};
