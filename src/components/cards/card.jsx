@@ -2,27 +2,63 @@ import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import classes from './cards.css';
 
-export function Card({ rank, suit, back }) {
-  if (back === true) {
-    return (<div className={Card.className.back} style={Card.style}>*</div>);
-  } else {
+class Card extends React.Component {
+  static className =  {
+    front: (rank, suit) => classNames(
+      classes.card,
+      classes['rank-' + rank.toLowerCase()],
+      classes[suit],
+    ),
+    back: classNames(classes.card, classes.back),
+  };
+
+  static style = {
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: false,
+    };
+
+    this.onClick = () => {
+      this.setState({
+        selected: !this.state.selected,
+      });
+    };
+  }
+
+  renderCard() {
+    const { rank, suit, back } = this.props;
+    if (back === true) {
+      return (
+        <div
+          onClick={this.onClick}
+          className={Card.className.back}
+          style={Card.style}>
+          *
+        </div>
+      );
+    }
+
     return (
-      <div className={Card.className.front(rank, suit)} style={Card.style}>
+      <span
+        onClick={this.onClick}
+        className={Card.className.front(rank, suit)}
+        style={Card.style}>
         <span className={classes.rank}>{rank}</span>
         <span className={classes.suit}></span>
-      </div>
+      </span>
+    );
+  }
+
+  render() {
+    return (
+      this.state.selected
+      ? <strong>{this.renderCard()}</strong>
+      : this.renderCard()
     );
   }
 }
 
-Card.className =  {
-  front: (rank, suit) => classNames(
-    classes.card,
-    classes['rank-' + rank.toLowerCase()],
-    classes[suit],
-  ),
-  back: classNames(classes.card, classes.back),
-};
-
-Card.style = {
-};
+export { Card };

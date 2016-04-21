@@ -31,7 +31,7 @@ class HomeView extends React.Component {
           <Hand cards={[
             { rank:'Q', suit:'diams' },
             { rank:'J', suit:'diams' },
-            { rank:'10', suit:'diams' },
+            { rank:'10', suit:'clubs' },
             { rank:'9', suit:'diams' },
             { rank:'8', suit:'diams' },
           ]} />
