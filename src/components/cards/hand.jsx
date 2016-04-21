@@ -16,7 +16,9 @@ export function Hand({ cards }) {
 
 Hand.BackKeyCount = 0;
 
-Hand.key = (card) => (card.back ? Hand.BackKeyCount++ : card.rank + card.suit);
+Hand.key = (card) => (
+  card.back ? `back-card-${Hand.BackKeyCount++}` : card.rank + card.suit
+);
 
 Hand.classNames = classNames(
   classes.playingCards,
