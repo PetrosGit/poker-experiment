@@ -12,9 +12,6 @@ const Style = {
   },
   table: {
     marginTop: '40px',
-    width: '350px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
 };
 
