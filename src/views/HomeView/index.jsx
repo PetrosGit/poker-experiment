@@ -1,6 +1,8 @@
+
+
 import React from 'react';
 
-import { Card, Hand } from 'components/cards';
+import { Card, Hand , BackHand } from 'components/cards';
 
 export default class HomeView extends React.Component {
   render () {
@@ -9,7 +11,9 @@ export default class HomeView extends React.Component {
           { rank:'10', suit:'diams' },
           { rank:'9', suit:'diams' },
           { rank:'8', suit:'diams' },
-        ]}/>
+        ]} />
+      <BackHand/>
+      
     );
   }
 }

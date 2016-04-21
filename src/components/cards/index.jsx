@@ -27,6 +27,21 @@ export function Hand({ cards }) {
   );
 }
 
+
+
+
+export function BackHand(){
+  return(
+  <div className={Hand.Style}>
+    <div className="card back">*</div>
+    <div className="card back">*</div>
+    <div className="card back">*</div>
+    <div className="card back">*</div>
+    <div className="card back">*</div>
+  </div>
+  );
+}
+
 Hand.Style = classNames(
   Style.playingCards,
   Style.simpleCards,
