@@ -29,4 +29,5 @@ Hand.classNames = classNames(
 Hand.style = {
   display: 'flex',
   justifyContent: 'center',
+  marginBottom: '20px',
 };
