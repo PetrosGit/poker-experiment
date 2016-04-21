@@ -36,22 +36,15 @@ class Card extends Component {
 
   renderCard() {
     const { rank, suit, back } = this.props;
+    const { className, style } = Card;
     if (back === true) {
       return (
-        <div
-          onClick={this.onClick}
-          className={Card.className.back}
-          style={Card.style}>
-          *
-        </div>
+        <div onClick={this.onClick} className={className.back} style={style}>*</div>
       );
     }
 
     return (
-      <span
-        onClick={this.onClick}
-        className={Card.className.front(rank, suit)}
-        style={Card.style}>
+      <span onClick={this.onClick} className={className.front(rank, suit)} style={style}>
         <span className={classes.rank}>{rank}</span>
         <span className={classes.suit}></span>
       </span>
@@ -59,10 +52,9 @@ class Card extends Component {
   }
 
   render() {
+    const cardElement = this.renderCard();
     return (
-      this.state.selected
-      ? <strong>{this.renderCard()}</strong>
-      : this.renderCard()
+      this.state.selected ? <strong children={cardElement} /> : cardElement
     );
   }
 }
