@@ -1,33 +1,33 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import classes from './cards.css';
+import classes, {
+  playingCards,
+  simpleCards,
+  rotateHand,
+} from './cards.css';
 
 import { Card } from './card';
 
-export function Hand({ cards }) {
-  return (
-    <div className={Hand.classNames} style={Hand.style}>
-      {cards.map((card) => (
-        <Card {...card} key={Hand.key(card)}/>
-      ))}
-    </div>
-  );
-}
+let backKeyCount = 0;
 
-Hand.BackKeyCount = 0;
-
-Hand.key = (card) => (
-  card.back ? `back-card-${Hand.BackKeyCount++}` : card.rank + card.suit
+const key = (card) => (
+  card.back ? `back-card-${backKeyCount++}` : card.rank + card.suit
 );
 
-Hand.classNames = classNames(
-  classes.playingCards,
-  classes.simpleCards,
-  classes.rotateHand,
-);
+const className = classNames(playingCards, simpleCards, rotateHand);
 
-Hand.style = {
+const style = {
   display: 'flex',
   justifyContent: 'center',
   marginBottom: '20px',
 };
+
+export function Hand({ cards }) {
+  return (
+    <div className={className} style={style}>
+      {cards.map((card) => (
+        <Card {...card} key={key(card)}/>
+      ))}
+    </div>
+  );
+}
