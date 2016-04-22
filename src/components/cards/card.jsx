@@ -2,23 +2,23 @@ import React, { PropTypes, Component } from 'react';
 import classNames from 'classnames';
 import classes from './cards.css';
 
+const className =  {
+  front: (rank, suit) => classNames(
+    classes.card,
+    classes['rank-' + rank.toLowerCase()],
+    classes[suit],
+  ),
+  back: classNames(classes.card, classes.back),
+};
+
+const style = {
+};
+
 class Card extends Component {
   static propTypes = {
     rank: PropTypes.string,
     suit: PropTypes.string,
     back: PropTypes.bool,
-  };
-
-  static className =  {
-    front: (rank, suit) => classNames(
-      classes.card,
-      classes['rank-' + rank.toLowerCase()],
-      classes[suit],
-    ),
-    back: classNames(classes.card, classes.back),
-  };
-
-  static style = {
   };
 
   constructor(props) {
@@ -36,7 +36,6 @@ class Card extends Component {
 
   renderCard() {
     const { rank, suit, back } = this.props;
-    const { className, style } = Card;
     if (back === true) {
       return (
         <div onClick={this.onClick} className={className.back} style={style}>*</div>
@@ -52,9 +51,9 @@ class Card extends Component {
   }
 
   render() {
-    const cardElement = this.renderCard();
+    const card = this.renderCard();
     return (
-      this.state.selected ? <strong children={cardElement} /> : cardElement
+      this.state.selected ? <strong children={card} /> : card
     );
   }
 }
