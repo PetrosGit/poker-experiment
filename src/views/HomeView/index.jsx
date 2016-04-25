@@ -36,6 +36,7 @@ class HomeView extends React.Component {
             { rank:'8', suit:'diams' },
           ]} />
         </div>
+        
       </div>
     );
   }
