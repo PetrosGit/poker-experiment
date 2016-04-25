@@ -1,5 +1,6 @@
 import React from 'react';
 import './homeview.css';
+import {StartButton} from 'components/buttons';
 
 import { Card, Hand } from 'components/cards';
 
@@ -17,6 +18,12 @@ const Style = {
 
 class HomeView extends React.Component {
   render () {
+  	if (StartButton.selected === false){
+  		return (<div style={Style.container}>
+  					<h1> Five Card Draw Poker </h1>
+  					<Startbutton />
+  				</div>);
+  	}
     return (
       <div style={Style.container}>
         <h1> Five Card Draw Poker </h1>
@@ -36,6 +43,7 @@ class HomeView extends React.Component {
             { rank:'8', suit:'diams' },
           ]} />
         </div>
+        <StartButton/>
       </div>
     );
   }
