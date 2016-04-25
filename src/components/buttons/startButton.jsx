@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
-
+import { Card } from './card';
+import { Hand } from './hand';
 
 
 class StartButton extends Component {
-	constructor(props) {
+	 constructor(props) {
     super(props);
     this.state = {
       selected: false,
@@ -15,9 +16,12 @@ class StartButton extends Component {
       });
     };
 
-    render() {
-    	return ( <div>Start</div>);
+    renderStartButton(){
+    	if(this.state.selected === false){
+    		return (
+    			<button type="button" onClick={this.onClick} >Start</button>)
 
-
-	}
-export {StartButton};
+    	}
+    }
+  
+}
