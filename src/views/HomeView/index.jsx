@@ -1,7 +1,8 @@
 import React from 'react';
 import './homeview.css';
-
+import {Startbutton} from 'components/buttons';
 import { Card, Hand } from 'components/cards';
+
 
 const Style = {
   container: {
@@ -36,6 +37,8 @@ class HomeView extends React.Component {
             { rank:'8', suit:'diams' },
           ]} />
         </div>
+
+      <Startbutton/>
       </div>
     );
   }
