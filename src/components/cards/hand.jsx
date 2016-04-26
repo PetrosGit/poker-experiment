@@ -11,7 +11,7 @@ import { Card } from './card';
 let backKeyCount = 0;
 
 const key = (card) => (
-  card.back ? `back-card-${backKeyCount++}` : card.rank + card.suit
+  card.back ? `hand-card-${backKeyCount++}` : card.rank + card.suit
 );
 
 const className = classNames(playingCards, simpleCards, rotateHand);
