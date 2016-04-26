@@ -3,7 +3,7 @@ const style = {
   display: 'flex',
   justifyContent: 'center',
   marginBottom: '20px',
-  color: 'red';
+  color: 'red',
 };
 
 class Startbutton extends React.Component {
