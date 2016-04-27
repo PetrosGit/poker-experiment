@@ -21,6 +21,7 @@ class HomeView extends React.Component {
     return (
       <div style={Style.container}>
         <h1> Five Card Draw Poker </h1>
+        
         <div style={Style.table}>
           <Hand cards={[
             { back: true },
