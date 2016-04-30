@@ -1,17 +1,21 @@
 import React from 'react';
-import './homeview.css';
 import { StartButton } from 'components/buttons';
-import { Card, Hand } from 'components/cards';
+import { Card, Hand , DeckNewHand } from 'components/cards';
+import _ from 'lodash';
 
 const Style = {
   container: {
     marginTop: '30px',
     width: '100%',
+    justifyContent: 'center',
+    marginLeft: '5%',
   },
   title: {
   },
   table: {
     marginTop: '40px',
+    textAlign: 'center',
+
   },
 };
 
@@ -33,6 +37,7 @@ class PlayingView extends React.Component {
           { rank:'9', suit:'diams' },
           { rank:'8', suit:'diams' },
         ]} />
+        <deckNewHand/>
       </div>
     );
   }
@@ -41,9 +46,9 @@ class PlayingView extends React.Component {
 class WelcomeView extends React.Component {
   render() {
     return (
-      <div style={Style.table}>
+      <h3 style={Style.table}>
         Start your new Game!!!
-      </div>
+      </h3>
     );
   }
 }
@@ -95,6 +100,9 @@ class HomeView extends React.Component {
       </div>
     );
   }
+
 }
 
 export default HomeView;
+
+
