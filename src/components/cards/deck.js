@@ -56,10 +56,10 @@ let fullDeck = [
 ];
 
 export function Deck() {
-	let newDeck = {...fullDeck};
+	let newDeck = { ...fullDeck };
 	return _.shuffle(newDeck);
 };
 
 export function deckGetHand(deck,count) {
-  return deck.splice(0,count);
+  return deck.splice(0, count);
 };

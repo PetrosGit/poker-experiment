@@ -16,34 +16,21 @@ const style = {
 
 class Card extends Component {
   static propTypes = {
-    rank: PropTypes.string,
-    suit: PropTypes.string,
-    back: PropTypes.bool,
+    card: PropTypes.object,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: false,
-    };
-
-    this.onClick = () => {
-      this.setState({
-        selected: !this.state.selected,
-      });
-    };
-  }
-
   renderCard() {
-    const { rank, suit, back } = this.props;
+    const { rank, suit, back, selected } = this.props.card;
+    const onClick = this.props.onClick;
+
     if (back === true) {
       return (
-        <div onClick={this.onClick} className={className.back} style={style}>*</div>
+        <div onClick={onClick} className={className.back} style={style}>*</div>
       );
     }
 
     return (
-      <span onClick={this.onClick} className={className.front(rank, suit)} style={style}>
+      <span onClick={onClick} className={className.front(rank, suit)} style={style}>
         <span className={classes.rank}>{rank}</span>
         <span className={classes.suit}></span>
       </span>
@@ -53,7 +40,7 @@ class Card extends Component {
   render() {
     const card = this.renderCard();
     return (
-      this.state.selected ? <strong children={card} /> : card
+      this.props.card.selected ? <strong children={card} /> : card
     );
   }
 }
