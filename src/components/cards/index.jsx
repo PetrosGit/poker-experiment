@@ -1,3 +1,3 @@
 export { Card } from './card';
 export { Hand } from './hand';
-export { DeckNewHand } from './decknewhand';
+export { Deck , deckGetHand } from './deck';

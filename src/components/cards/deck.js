@@ -1,24 +1,4 @@
-import React, { PropTypes }  from 'react';
-
-import { Hand } from 'components/cards';
 import _ from 'lodash';
-
-const Style = {
-  container: {
-    marginTop: '30px',
-    width: '100%',
-    justifyContent: 'center',
-    marginLeft: '5%',
-  },
-  title: {
-  },
-  table: {
-    marginTop: '40px',
-    textAlign: 'center',
-
-  },
-};
-
 
 let fullDeck = [
   {rank : '2' , suit : 'diams'},
@@ -75,13 +55,11 @@ let fullDeck = [
   {rank : 'A' , suit : 'clubs'},
 ];
 
-export function DeckNewHand() {
-	let newDeck = fullDeck
-	shuffledDeck = _.shuffle(fullDeck);
-	console.log(shuffledDeck);
-  return (<div style={Style.table}>
-        	<Hand cards={shuffledDeck.splice(5,0)} />
-      	  </div>
-    
-  );
-}
+export function Deck() {
+	let newDeck = {...fullDeck};
+	return _.shuffle(newDeck);
+};
+
+export function deckGetHand(deck,count) {
+  return deck.splice(0,count);
+};
