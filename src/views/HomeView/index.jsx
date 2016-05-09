@@ -1,6 +1,7 @@
 import React from 'react';
-import { StartButton } from 'components/buttons';
-import { Card, Hand , DeckNewHand } from 'components/cards';
+import './homeview.css';
+import { Card, Hand } from 'components/cards';
+import { Deck, deckGetHand } from 'components/cards';
 import _ from 'lodash';
 
 const Style = {
@@ -20,25 +21,27 @@ const Style = {
 };
 
 class PlayingView extends React.Component {
-  render () {
+  constructor(props) {
+    super(props);
+    const deck =  Deck();
+    this.state = {
+      deck,
+      playerA: deckGetHand(deck, 5),
+      playerB: deckGetHand(deck, 5),
+    };
+  }
+  changeCards(){
+    _.filter(PlayingView.state.playerB,function(){return Card.state.selected ;})
+  };
+  
+
+  render() {
     return (
       <div style={Style.table}>
-        <Hand cards={[
-          { back: true },
-          { back: true },
-          { back: true },
-          { back: true },
-          { back: true },
-        ]} />
-        <Hand cards={[
-          { rank:'Q', suit:'diams' },
-          { rank:'J', suit:'diams' },
-          { rank:'10', suit:'clubs' },
-          { rank:'9', suit:'diams' },
-          { rank:'8', suit:'diams' },
-        ]} />
-        <deckNewHand/>
+        <Hand cards={this.state.playerA} />
+        <Hand cards={this.state.playerB} /> 
       </div>
+      <button onClick={this.changeCards}>Swap</button>
     );
   }
 }
@@ -66,6 +69,8 @@ class HomeView extends React.Component {
       });
     };
   }
+  
+  
 
   renderStartGameButton() {
     return (
