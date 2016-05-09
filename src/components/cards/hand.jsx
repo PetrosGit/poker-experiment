@@ -26,8 +26,8 @@ export function Hand({ cards }) {
   return (
     <div className={className} style={style}>
       {cards.map((card) => (
-        <Card {...card} key={key(card)}/>
+        <Card card={card} onClick={card.onClick} key={key(card)} />
       ))}
     </div>
   );
-}
+};

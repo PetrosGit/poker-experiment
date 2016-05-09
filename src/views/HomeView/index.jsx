@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './homeview.css';
 import { Card, Hand } from 'components/cards';
 import { Deck, deckGetHand } from 'components/cards';
@@ -23,25 +24,51 @@ const Style = {
 class PlayingView extends React.Component {
   constructor(props) {
     super(props);
+
+    const touchState = () => {
+      this.setState(this.state);
+    };
+
     const deck =  Deck();
     this.state = {
       deck,
-      playerA: deckGetHand(deck, 5),
-      playerB: deckGetHand(deck, 5),
+      playerA: _.map(deckGetHand(deck, 5), (card) => {
+        card.onClick = () => {
+          card.selected = !card.selected;
+          touchState();
+        }
+        return card;
+      }),
+      playerB: _.map(deckGetHand(deck, 5), (card) => {
+        card.onClick = () => {
+          card.selected = !card.selected;
+          touchState();
+        }
+        return card;
+      }),
     };
   }
-  changeCards(){
-    _.filter(PlayingView.state.playerB,function(){return Card.state.selected ;})
+
+  changeCards = () => {
+    const initLength = this.state.playerB.length;
+    const remaining = _.filter(this.state.playerB, (card) => !card.selected);
+    const numChanged = initLength - remaining.length;
+    this.setState({
+      playerB: [
+        ...remaining, ...deckGetHand(this.state.deck, numChanged)
+      ]
+    });
   };
-  
 
   render() {
     return (
-      <div style={Style.table}>
-        <Hand cards={this.state.playerA} />
-        <Hand cards={this.state.playerB} /> 
+      <div>
+        <div style={Style.table}>
+          <Hand cards={this.state.playerA} />
+          <Hand cards={this.state.playerB} />
+        </div>
+        <button onClick={this.changeCards}>Swap</button>
       </div>
-      <button onClick={this.changeCards}>Swap</button>
     );
   }
 }
@@ -69,8 +96,8 @@ class HomeView extends React.Component {
       });
     };
   }
-  
-  
+
+
 
   renderStartGameButton() {
     return (
@@ -109,5 +136,3 @@ class HomeView extends React.Component {
 }
 
 export default HomeView;
-
-
