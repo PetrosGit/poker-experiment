@@ -1,59 +1,48 @@
-/* @flow */
-// ------------------------------------
-// Constants
-// ------------------------------------
-export const COUNTER_INCREMENT = 'COUNTER_INCREMENT';
+import { Deck, deckGetHand } from './deck';
+import React from 'react';
+import { createStore } from 'redux';
+import { connect } from 'react-redux';
+const initialState = {};
 
-// ------------------------------------
-// Actions
-// ------------------------------------
-// NOTE: "Action" is a Flow interface defined in https://github.com/TechnologyAdvice/flow-interfaces
-// If you're unfamiliar with Flow, you are completely welcome to avoid annotating your code, but
-// if you'd like to learn more you can check out: flowtype.org.
-// DOUBLE NOTE: there is currently a bug with babel-eslint where a `space-infix-ops` error is
-// incorrectly thrown when using arrow functions, hence the oddity.
-export function increment (value: number = 1): Action {
+export const createGame = () => {
+  let newDeck = Deck();
+  let firstDeal = deckGetHand(newDeck, 5);
+  let secondDeal = deckGetHand(firstDeal.deck, 5);
   return {
-    type: COUNTER_INCREMENT,
-    payload: value
+    deck: secondDeal.deck,
+    playerA: firstDeal.hand,
+    playerB: secondDeal.hand,
   };
-}
+};
 
-// This is a thunk, meaning it is a function that immediately
-// returns a function for lazy evaluation. It is incredibly useful for
-// creating async actions, especially when combined with redux-thunk!
-// NOTE: This is solely for demonstration purposes. In a real application,
-// you'd probably want to dispatch an action of COUNTER_DOUBLE and let the
-// reducer take care of this logic.
-export const doubleAsync = (): Function => {
-  return (dispatch: Function, getState: Function): Promise => {
-    return new Promise((resolve: Function): void => {
-      setTimeout(() => {
-        dispatch(increment(getState().counter));
-        resolve();
-      }, 200);
+const game = (state, action) => {
+  switch (action.type) {
+    case 'START_GAME' :
+      return createGame();
+    case 'END_GAME' :
+      return {};
+    default :
+      return state;
+  }
+};
+
+const store = createStore(game);
+
+export let StartGame = ({ dispatch }) => (
+  <button onClick={() => {dispatch({
+    type: 'START_GAME',
     });
-  };
-};
-
-export const actions = {
-  increment,
-  doubleAsync
-};
-
-// ------------------------------------
-// Action Handlers
-// ------------------------------------
-const ACTION_HANDLERS = {
-  [COUNTER_INCREMENT]: (state: number, action: {payload: number}): number => state + action.payload
-};
-
-// ------------------------------------
-// Reducer
-// ------------------------------------
-const initialState = 0;
-export default function counterReducer (state: number = initialState, action: Action): number {
-  const handler = ACTION_HANDLERS[action.type];
-
-  return handler ? handler(state, action) : state;
-}
+  }}>
+  START GAME
+  </button>
+);
+StartGame = connect()(StartGame);
+export let EndGame = ({ dispatch }) => (
+  <button onClick={() => {dispatch({
+    type: 'END_GAME',
+  });
+}}>
+  END GAME
+  </button>
+);
+EndGame = connect()(EndGame);

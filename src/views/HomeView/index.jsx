@@ -1,9 +1,13 @@
 import React from 'react';
-
+import Redux from 'redux';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { connect } from 'react-redux';
 import './homeview.css';
 import { Card, Hand } from 'components/cards';
 import { Deck, deckGetHand } from 'components/cards';
 import _ from 'lodash';
+
 
 const Style = {
   container: {
@@ -20,116 +24,82 @@ const Style = {
 
   },
 };
-
-class PlayingView extends React.Component {
-  constructor(props) {
-    super(props);
-
-    const touchState = () => {
-      this.setState(this.state);
-    };
-
-    const deck =  Deck();
-    this.state = {
-      deck,
-      playerA: _.map(deckGetHand(deck, 5), (card) => {
-        card.onClick = () => {
-          card.selected = !card.selected;
-          touchState();
-        }
-        return card;
-      }),
-      playerB: _.map(deckGetHand(deck, 5), (card) => {
-        card.onClick = () => {
-          card.selected = !card.selected;
-          touchState();
-        }
-        return card;
-      }),
-    };
-  }
-
-  changeCards = () => {
-    const initLength = this.state.playerB.length;
-    const remaining = _.filter(this.state.playerB, (card) => !card.selected);
-    const numChanged = initLength - remaining.length;
-    this.setState({
-      playerB: [
-        ...remaining, ...deckGetHand(this.state.deck, numChanged)
-      ]
-    });
+const createGame = () => {
+  let newDeck = Deck();
+  let firstDeal = deckGetHand(newDeck, 5);
+  let secondDeal = deckGetHand(firstDeal.deck, 5);
+  return {
+    deck: secondDeal.deck,
+    playerA: firstDeal.hand,
+    playerB: secondDeal.hand,
   };
+};
 
-  render() {
-    return (
-      <div>
-        <div style={Style.table}>
-          <Hand cards={this.state.playerA} />
-          <Hand cards={this.state.playerB} />
-        </div>
-        <button onClick={this.changeCards}>Swap</button>
+let PlayingView = ({playerA, playerB, changeCards}) => (
+  playerA ?
+  (
+    <div>
+      <div style={Style.table}>
+        <Hand cards={playerA} />
+        <Hand cards={playerB} />
       </div>
-    );
-  }
-}
+      <button onClick={changeCards}>Swap</button>
+    </div>
+  ) : (<div></div>)
+);
 
-class WelcomeView extends React.Component {
-  render() {
-    return (
-      <h3 style={Style.table}>
-        Start your new Game!!!
-      </h3>
-    );
+PlayingView = connect(
+ ({ playerA, playerB }) => ({
+    playerA,
+    playerB,
+  }),
+ (dispatch) => ({
+    changeCards: () => dispatch(''),
+  })
+)(PlayingView);
+
+let StartGame = ({ onStartGame }) => (
+  <button onClick={onStartGame}>START GAME</button>
+);
+
+StartGame = connect(
+  null,
+  (dispatch) => ({
+    onStartGame: () => dispatch({ type: 'START_GAME' }),
+  }),
+)(StartGame);
+
+const game = (state = {}, action) => {
+  switch (action.type) {
+    case 'START_GAME' :
+      return createGame();
+    case 'END_GAME' :
+      return {};
+    default :
+      return state;
   }
-}
+};
+
+const store = createStore(game);
+
+
 
 class HomeView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      playingView: false,
-    };
-
-    this.onClick = () => {
-      this.setState({
-        playingView: !this.state.playingView,
-      });
-    };
-  }
-
-
-
-  renderStartGameButton() {
-    return (
-      <span>
-        Start Game
-      </span>
-    );
-  }
-
-  renderEndGameButton() {
-    return (
-      <span>
-        End Game
-      </span>
-    );
   }
 
   render () {
-    const view = this.state.playingView
-    ? <PlayingView />
-    : <WelcomeView />;
-    const buttonContent = this.state.playingView
-    ? this.renderEndGameButton()
-    : this.renderStartGameButton();
 
     return (
-      <div style={Style.container}>
-        <h1> Five Card Draw Poker </h1>
+      <Provider store = {store}>
+        <div style={Style.container}>
+          <h1> Five Card Draw Poker </h1>
+          <PlayingView/>
+          <StartGame/>
 
-        {view}
-        <button onClick={this.onClick}>{buttonContent}</button>
-      </div>
+        </div>
+      </Provider>
     );
   }
 
