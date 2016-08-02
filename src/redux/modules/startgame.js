@@ -4,10 +4,14 @@ import { createStore } from 'redux';
 import { connect } from 'react-redux';
 const initialState = {};
 
+const toggleCard = (card) => ({...card, completed:!card.completed});
+
 export const createGame = () => {
   let newDeck = Deck();
   let firstDeal = deckGetHand(newDeck, 5);
   let secondDeal = deckGetHand(firstDeal.deck, 5);
+  let firstHand = firstDeal.hand;
+  let secondHand = secondDeal.hand;
   return {
     deck: secondDeal.deck,
     playerA: firstDeal.hand,

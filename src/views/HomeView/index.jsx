@@ -34,18 +34,27 @@ const createGame = () => {
     playerB: secondDeal.hand,
   };
 };
-
-let PlayingView = ({playerA, playerB, changeCards}) => (
+const onCardClick = () => {
+  console.log('-----')
+  store.dispatch({
+    type: 'TOGGLE_CARD',
+    rank,
+    suit,
+    selected,
+  })
+}
+let PlayingView = ({playerA, playerB, changeCards }) => (
   playerA ?
   (
     <div>
       <div style={Style.table}>
-        <Hand cards={playerA} />
+        <Hand cards={playerA} onCardClick={onCardClick}/>
         <Hand cards={playerB} />
       </div>
       <button onClick={changeCards}>Swap</button>
+      <EndGame/>
     </div>
-  ) : (<div></div>)
+  ) : (<StartGame/>)
 );
 
 PlayingView = connect(
@@ -54,7 +63,7 @@ PlayingView = connect(
     playerB,
   }),
  (dispatch) => ({
-    changeCards: () => dispatch(''),
+    changeCards: () => console.log(store.getState()),
   })
 )(PlayingView);
 
@@ -75,10 +84,24 @@ const game = (state = {}, action) => {
       return createGame();
     case 'END_GAME' :
       return {};
+    case 'TOGGLE_CARD' : 
+     let oldHand = state.playerA;
+     console.log(oldHand);
+     
     default :
       return state;
   }
 };
+let EndGame = ({ onEndGame }) => (
+  <button onClick={onEndGame}>END GAME</button>
+);
+
+EndGame = connect(
+  null,
+  (dispatch) => ({
+    onEndGame: () => dispatch({ type: 'END_GAME' }),
+  }),
+)(EndGame);
 
 const store = createStore(game);
 
@@ -96,8 +119,6 @@ class HomeView extends React.Component {
         <div style={Style.container}>
           <h1> Five Card Draw Poker </h1>
           <PlayingView/>
-          <StartGame/>
-
         </div>
       </Provider>
     );

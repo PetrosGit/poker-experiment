@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
-import counter from './modules/counter';
+import startgame from './modules/startgame';
+import endgame from './modules/startgame';
+
 
 export default combineReducers({
-  counter,
-  router
+  startgame,
+  router,
 });

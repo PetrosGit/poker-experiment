@@ -5,7 +5,7 @@ import classes, {
   simpleCards,
   rotateHand,
 } from './cards.css';
-
+import { store } from '../../views/HomeView/index'
 import { Card } from './card';
 
 let backKeyCount = 0;
@@ -21,12 +21,21 @@ const style = {
   justifyContent: 'center',
   marginBottom: '20px',
 };
+const onCardClick = () => {
+  console.log('-----')
+  store.dispatch({
+    type: 'TOGGLE_CARD',
+    rank,
+    suit,
+    selected,
+  })
+}
 
-export function Hand({ cards }) {
+export function Hand({ cards , onCardClick }) {
   return (
     <div className={className} style={style}>
       {cards.map((card) => (
-        <Card card={card} onClick={card.onClick} key={key(card)} />
+        <Card card={card} onClick={onCardClick} key={key(card)} />
       ))}
     </div>
   );
