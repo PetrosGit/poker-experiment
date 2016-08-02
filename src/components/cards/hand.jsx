@@ -21,21 +21,13 @@ const style = {
   justifyContent: 'center',
   marginBottom: '20px',
 };
-const onCardClick = () => {
-  console.log('-----')
-  store.dispatch({
-    type: 'TOGGLE_CARD',
-    rank,
-    suit,
-    selected,
-  })
-}
+
 
 export function Hand({ cards , onCardClick }) {
   return (
     <div className={className} style={style}>
       {cards.map((card) => (
-        <Card card={card} onClick={onCardClick} key={key(card)} />
+        <Card card={card} onClick={() => onCardClick(card.rank , card.suit , card.selected)} key={key(card)} />
       ))}
     </div>
   );

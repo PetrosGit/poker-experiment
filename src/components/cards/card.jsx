@@ -20,17 +20,13 @@ class Card extends Component {
   };
 
   renderCard() {
-    const { rank, suit, back, selected } = this.props.card;
+    const { rank, suit, selected } = this.props.card;
     const onClick = this.props.onClick;
 
-    if (back === true) {
-      return (
-        <div onClick={onClick} className={className.back} style={style}>*</div>
-      );
-    }
+
 
     return (
-      <span onClick={onClick} className={className.front(rank, suit)} style={style}>
+      <span onClick={onClick} className={className.front(rank, suit)} style={style}s>
         <span className={classes.rank}>{rank}</span>
         <span className={classes.suit}></span>
       </span>

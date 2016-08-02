@@ -34,14 +34,15 @@ const createGame = () => {
     playerB: secondDeal.hand,
   };
 };
-const onCardClick = () => {
-  console.log('-----')
+const onCardClick = (rank , suit , selected) => {
+  console.log(selected)
   store.dispatch({
     type: 'TOGGLE_CARD',
     rank,
     suit,
     selected,
   })
+
 }
 let PlayingView = ({playerA, playerB, changeCards }) => (
   playerA ?
@@ -86,8 +87,15 @@ const game = (state = {}, action) => {
       return {};
     case 'TOGGLE_CARD' : 
      let oldHand = state.playerA;
-     console.log(oldHand);
-     
+     let newHand = oldHand.map((card)=>{
+      if (action.rank == card.rank & action.suit == card.suit){
+        card.selected = !card.selected;
+        return card;
+      }
+      return card;
+     });
+     console.log(newHand);
+     return {...state , playerA:newHand}
     default :
       return state;
   }
