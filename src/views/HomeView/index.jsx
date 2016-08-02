@@ -8,7 +8,20 @@ import { Card, Hand } from 'components/cards';
 import { Deck, deckGetHand } from 'components/cards';
 import _ from 'lodash';
 
-
+const changeCards = () => {
+  let oldDeck = store.getState().deck;
+  let numOfSelectedCards = _.filter(store.getState().playerA , (card) => (card.selected)).length;
+  let unselectedCards = _.filter(store.getState().playerA , (card) => (card.selected)).length;
+  let newDeal = deckGetHand(oldDeck,numOfSelectedCards);
+  let newHand = [...unselectedCards, newDeal.hand];
+  let newDeck = newDeal.deck;
+  let changedState = {
+    deck:newDeck,
+    playerA:newHand,
+  }
+  console.log(changedState);
+  return changedState
+}
 const Style = {
   container: {
     marginTop: '30px',
@@ -44,7 +57,7 @@ const onCardClick = (rank , suit , selected) => {
   })
 
 }
-let PlayingView = ({playerA, playerB, changeCards }) => (
+let PlayingView = ({playerA, playerB, changeCardsCall }) => (
   playerA ?
   (
     <div>
@@ -52,7 +65,7 @@ let PlayingView = ({playerA, playerB, changeCards }) => (
         <Hand cards={playerA} onCardClick={onCardClick}/>
         <Hand cards={playerB} />
       </div>
-      <button onClick={changeCards}>Swap</button>
+      <button onClick={changeCardsCall}>Swap</button>
       <EndGame/>
     </div>
   ) : (<StartGame/>)
@@ -64,7 +77,10 @@ PlayingView = connect(
     playerB,
   }),
  (dispatch) => ({
-    changeCards: () => console.log(store.getState()),
+    changeCardsCall: () => dispatch({
+      type: 'CHANGE_CARDS',
+
+    })
   })
 )(PlayingView);
 
@@ -96,6 +112,9 @@ const game = (state = {}, action) => {
      });
      console.log(newHand);
      return {...state , playerA:newHand}
+    case 'CHANGE_CARDS':
+     let newState = changeCards();
+     return {...state , newState}
     default :
       return state;
   }
