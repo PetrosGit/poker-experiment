@@ -48,7 +48,7 @@ const createGame = () => {
   };
 };
 
-const onCardClick = (rank , suit , selected) => {
+const onCardClick = (rank, suit, selected) => {
   console.log(selected);
   store.dispatch({
     type: 'TOGGLE_CARD',
