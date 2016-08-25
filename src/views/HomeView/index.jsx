@@ -7,15 +7,18 @@ import './homeview.css';
 import { Card, Hand } from 'components/cards';
 import { Deck, deckGetHand } from 'components/cards';
 import _ from 'lodash';
+import { StartGame } from './../../routes/HomeView/Containers/StartButton.js';
+import { EndGame } from './../../routes/PlayingView/Containers/EndButton.js';
+import { ChangeCardsButton } from './../../routes/PlayingView/Containers/ChangeCardsButton.js';
 
 const changeCards = () => {
   let currentDeck = store.getState().deck;
-  let selectedCards = _.filter(store.getState().playerA , (card) => (card.selected));
-  let unselectedCards = _.filter(store.getState().playerA , (card) => (!card.selected)); //prosthesa ! giati edeixne ta selected cards
+  let selectedCards = _.filter(store.getState().playerA, (card) => (card.selected));
+  let unselectedCards = _.filter(store.getState().playerA, (card) => (!card.selected));
   let newDeal = deckGetHand(currentDeck, selectedCards.length);
   let newHand = unselectedCards.concat(newDeal.hand);
   currentDeck = newDeal.deck;
-  alert("cards left " + currentDeck.length);
+  alert('cards left ' + currentDeck.length);
   return {
     deck: currentDeck,
     playerA: newHand,
@@ -34,7 +37,6 @@ const Style = {
   table: {
     marginTop: '40px',
     textAlign: 'center',
-
   },
 };
 const createGame = () => {
@@ -58,7 +60,7 @@ const onCardClick = (rank, suit, selected) => {
   });
 };
 
-let PlayingView = ({playerA, playerB, changeCardsCall }) => (
+let PlayingView = ({ playerA, playerB, changeCardsCall }) => (
   playerA ?
   (
     <div>
@@ -66,35 +68,18 @@ let PlayingView = ({playerA, playerB, changeCardsCall }) => (
         <Hand cards={playerA} onCardClick={onCardClick} />
         <Hand cards={playerB} />
       </div>
-      <button onClick={changeCardsCall}>Swap</button>
+      <ChangeCardsButton/>
       <EndGame/>
     </div>
   ) : (<StartGame/>)
 );
-
 PlayingView = connect(
  ({ playerA, playerB }) => ({
     playerA,
     playerB,
   }),
- (dispatch) => ({
-    changeCardsCall: () => dispatch({
-      type: 'CHANGE_CARDS',
-
-    }),
-  })
-)(PlayingView);
-
-let StartGame = ({ onStartGame }) => (
-  <button onClick={onStartGame}>START GAME</button>
-);
-
-StartGame = connect(
   null,
-  (dispatch) => ({
-    onStartGame: () => dispatch({ type: 'START_GAME' }),
-  }),
-)(StartGame);
+)(PlayingView);
 
 const game = (state = {}, action) => {
     switch (action.type) {
@@ -116,34 +101,18 @@ const game = (state = {}, action) => {
       return { ...state, playerA: newHand };
     case 'CHANGE_CARDS':
       return changeCards();
-      //let newState = changeCards();
-      //return { ...state, newState };
-
     default :
       return state;
   }
   };
 
-let EndGame = ({ onEndGame }) => (
-  <button onClick={onEndGame}>END GAME</button>
-);
-
-EndGame = connect(
-  null,
-  (dispatch) => ({
-    onEndGame: () => dispatch({ type: 'END_GAME' }),
-  }),
-)(EndGame);
-
 const store = createStore(game);
-
 class HomeView extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render () {
-
     return (
       <Provider store = {store}>
         <div style={Style.container}>
@@ -153,7 +122,5 @@ class HomeView extends React.Component {
       </Provider>
     );
   }
-
 }
-
 export default HomeView;
