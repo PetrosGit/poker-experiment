@@ -10,7 +10,7 @@ import _ from 'lodash';
 import { StartGame } from './../../routes/HomeView/Containers/StartButton.js';
 import { EndGame } from './../../routes/PlayingView/Containers/EndButton.js';
 import { ChangeCardsButton } from './../../routes/PlayingView/Containers/ChangeCardsButton.js';
-
+import { PokerHand } from './cards/poker.js';
 const changeCards = () => {
   let currentDeck = store.getState().deck;
   let selectedCards = _.filter(store.getState().playerA, (card) => (card.selected));
