@@ -9,7 +9,7 @@ export class Deck {
     const cards = [];
     for (const [ weight, rank ] of Ranks.entries()) {
       for (const suit of Suits) {
-        cards.push({ suit, rank, weight: weight + 1 });
+        cards.push({ suit, rank, weight: String.fromCharCode(weight + 65) });
       }
     }
     this.cards = _.shuffle(cards);
@@ -20,7 +20,7 @@ export class Deck {
   }
 }
 
-export class GameHand {
+export class Hand {
   constructor(cards) {
     this.cards = _.sortBy(cards, 'weight').reverse();
     this.ranks = _.groupBy(this.cards, 'rank');
@@ -28,7 +28,16 @@ export class GameHand {
     this.rankTimes = _.groupBy(this.ranks, 'length');
     this.suitTimes = _.groupBy(this.suits, 'length');
     this.maxInARow = maxInARow(_.map(this.cards, 'weight'));
+
+    this.orderedWeights = _(this.ranks)
+    .map((cardGroup) => ({ length: cardGroup.length, weight: cardGroup[0].weight }))
+    .sortBy(({length, weight}) => `${length}${weight}`)
+    .map('weight')
+    .reverse()
+    .value();
   }
+
+  getOrderedWeights = () => this.orderedWeights;
 
   getOfSameRank = (n) => this.rankTimes[n] || [];
 

@@ -5,8 +5,9 @@ import classes, {
   simpleCards,
   rotateHand,
 } from './cards.css';
-import { store } from '../../views/HomeView/index'
+import { store } from '../../views/HomeView/index';
 import { Card } from './card';
+import cardStyles from  './cards.css';
 
 let backKeyCount = 0;
 
@@ -22,13 +23,21 @@ const style = {
   marginBottom: '20px',
 };
 
-
-export function Hand({ cards , onCardClick }) {
+export function Hand({ cards, onCardClick, isVisible = false }) {
   return (
-    <div className={className} style={style}>
+    isVisible ?
+    (<div className={className} style={style}>
       {cards.map((card) => (
-        <Card card={card} onClick={() => onCardClick(card.rank , card.suit , card.selected)} key={key(card)} />
+        <Card card={card} onClick={() => onCardClick(card.rank, card.suit, card.selected)} key={key(card)} />
       ))}
-    </div>
+    </div>):
+    (<div>
+      <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
+      <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
+      <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
+      <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
+      <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
+    </div>)
+
   );
 };

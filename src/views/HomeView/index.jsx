@@ -11,19 +11,8 @@ import { StartGame } from './../../routes/HomeView/Containers/StartButton.js';
 import { EndGame } from './../../routes/PlayingView/Containers/EndButton.js';
 import { ChangeCardsButton } from './../../routes/PlayingView/Containers/ChangeCardsButton.js';
 import { PokerHand } from './cards/poker.js';
-const changeCards = () => {
-  let currentDeck = store.getState().deck;
-  let selectedCards = _.filter(store.getState().playerA, (card) => (card.selected));
-  let unselectedCards = _.filter(store.getState().playerA, (card) => (!card.selected));
-  let newDeal = deckGetHand(currentDeck, selectedCards.length);
-  let newHand = unselectedCards.concat(newDeal.hand);
-  currentDeck = newDeal.deck;
-  alert('cards left ' + currentDeck.length);
-  return {
-    deck: currentDeck,
-    playerA: newHand,
-  };
-};
+import { ShowWinner } from './../../routes/PlayingView/Containers/ShowWinner.js';
+import { NextRound } from './../../routes/PlayingView/Containers/NextRound.js';
 
 const Style = {
   container: {
@@ -50,6 +39,21 @@ const createGame = () => {
   };
 };
 
+const changeCards = () => {
+  let currentDeck = store.getState().deck;
+  let selectedCards = _.filter(store.getState().playerA, (card) => (card.selected));
+  let unselectedCards = _.filter(store.getState().playerA, (card) => (!card.selected));
+  let newDeal = deckGetHand(currentDeck, selectedCards.length);
+  let newHand = unselectedCards.concat(newDeal.hand);
+  currentDeck = newDeal.deck;
+  return {
+    ...store.getState(),
+    deck: currentDeck,
+    playerA: newHand,
+    usedSwap: true,
+  };
+};
+
 const onCardClick = (rank, suit, selected) => {
   console.log(selected);
   store.dispatch({
@@ -60,23 +64,26 @@ const onCardClick = (rank, suit, selected) => {
   });
 };
 
-let PlayingView = ({ playerA, playerB, changeCardsCall }) => (
+let PlayingView = ({ playerA, playerB, changeCards, visibility }) => (
   playerA ?
   (
     <div>
       <div style={Style.table}>
-        <Hand cards={playerA} onCardClick={onCardClick} />
-        <Hand cards={playerB} />
+        <Hand cards={playerB} isVisible={visibility}/>
+        <Hand cards={playerA} onCardClick={onCardClick} isVisible={true}/>
       </div>
-      <ChangeCardsButton/>
+      <ChangeCardsButton />
+      <ShowWinner/>
+      <NextRound/>
       <EndGame/>
     </div>
   ) : (<StartGame/>)
 );
 PlayingView = connect(
- ({ playerA, playerB }) => ({
+ ({ playerA, playerB, visibility}) => ({
     playerA,
     playerB,
+    visibility,
   }),
   null,
 )(PlayingView);
@@ -86,7 +93,22 @@ const game = (state = {}, action) => {
     case 'START_GAME' :
       return createGame();
     case 'END_GAME' :
+      console.log(state);
       return {};
+    case 'SHOW_WINNER' :
+      let hand1 = new PokerHand(state.playerA);
+      let hand2 = new PokerHand(state.playerB);
+      console.log(hand1.order, hand2.order, state);
+      (hand1.order > hand2.order) ?
+        alert('YOU WIN!!!') :
+      (hand1.order == hand2.order) ?
+        alert('Draw') :
+        alert('You lose');
+      return {
+        ...state,
+        visibility: true,
+        usedSwap: true,
+      };
     case 'TOGGLE_CARD' :
       let oldHand = state.playerA;
       let newHand = oldHand.map((card)=> {
