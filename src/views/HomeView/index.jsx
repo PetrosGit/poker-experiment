@@ -34,22 +34,22 @@ const createGame = () => {
   let secondDeal = deckGetHand(firstDeal.deck, 5);
   return {
     deck: secondDeal.deck,
-    playerA: { hand: firstDeal.hand, chips: 20 },
-    playerB: { hand: secondDeal.hand, chips: 20 },
+    playerA: firstDeal.hand,
+    playerB: secondDeal.hand,
   };
 };
 
 const changeCards = () => {
   let currentDeck = store.getState().deck;
-  let selectedCards = _.filter(store.getState().playerA.hand, (card) => (card.selected));
-  let unselectedCards = _.filter(store.getState().playerA.hand, (card) => (!card.selected));
+  let selectedCards = _.filter(store.getState().playerA, (card) => (card.selected));
+  let unselectedCards = _.filter(store.getState().playerA, (card) => (!card.selected));
   let newDeal = deckGetHand(currentDeck, selectedCards.length);
   let newHand = unselectedCards.concat(newDeal.hand);
   currentDeck = newDeal.deck;
   return {
     ...store.getState(),
     deck: currentDeck,
-    playerA: { ...store.getState().playerA, hand: newHand },
+    playerA: newHand,
     usedSwap: true,
   };
 };
@@ -69,8 +69,8 @@ let PlayingView = ({ playerA, playerB, changeCards, visibility }) => (
   (
     <div>
       <div style={Style.table}>
-        <Hand cards={playerB.hand} isVisible={visibility}/>
-        <Hand cards={playerA.hand} onCardClick={onCardClick} isVisible={true}/>
+        <Hand cards={playerB} isVisible={visibility}/>
+        <Hand cards={playerA} onCardClick={onCardClick} isVisible={true}/>
       </div>
       <ChangeCardsButton />
       <ShowWinner/>
@@ -96,8 +96,8 @@ const game = (state = {}, action) => {
       console.log(state);
       return {};
     case 'SHOW_WINNER' :
-      let hand1 = new PokerHand(state.playerA.hand);
-      let hand2 = new PokerHand(state.playerB.hand);
+      let hand1 = new PokerHand(state.playerA);
+      let hand2 = new PokerHand(state.playerB);
       console.log(hand1.order, hand2.order, state);
       (hand1.order > hand2.order) ?
         alert('YOU WIN!!!') :
@@ -110,7 +110,7 @@ const game = (state = {}, action) => {
         usedSwap: true,
       };
     case 'TOGGLE_CARD' :
-      let oldHand = state.playerA.hand;
+      let oldHand = state.playerA;
       let newHand = oldHand.map((card)=> {
         if (action.rank == card.rank & action.suit == card.suit) {
           card.selected = !card.selected;
@@ -120,7 +120,7 @@ const game = (state = {}, action) => {
         return card;
       });
       console.log(newHand);
-      return { ...state, playerA: { ... state.playerA, hand: newHand } };
+      return { ...state, playerA: newHand };
     case 'CHANGE_CARDS':
       return changeCards();
     default :
