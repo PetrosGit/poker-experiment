@@ -5,8 +5,7 @@ import classes, {
   simpleCards,
   rotateHand,
 } from './cards.css';
-import { store } from '../../views/HomeView/index';
-import { Card } from './card';
+import Card from './card';
 import cardStyles from  './cards.css';
 
 let backKeyCount = 0;

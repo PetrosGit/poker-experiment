@@ -1,5 +1,4 @@
 import { Deck, deckGetHand } from './../../../components/cards/deck.js';
-import { store } from './../../gameReducer.js';
 
 const changeCards = () => {
   let currentDeck = store.getState().deck;

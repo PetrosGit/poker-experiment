@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import classes from './cards.css';
 
@@ -17,16 +18,20 @@ const style = {
 class Card extends Component {
   static propTypes = {
     card: PropTypes.object,
+    onSelect: PropTypes.func,
+  };
+
+  handleSelect = () => {
+    const { onSelect, card } = this.props;
+    onSelect(card);
   };
 
   renderCard() {
-    const { rank, suit, selected } = this.props.card;
-    const onClick = this.props.onClick;
-
-
+    const { onSelect, card } = this.props;
+    const { rank, suit, selected } = card;
 
     return (
-      <span onClick={onClick} className={className.front(rank, suit)} style={style}s>
+      <span onClick={this.handleSelect} className={className.front(rank, suit)} style={style}s>
         <span className={classes.rank}>{rank}</span>
         <span className={classes.suit}></span>
       </span>
@@ -41,4 +46,16 @@ class Card extends Component {
   }
 }
 
-export { Card };
+export default connect(
+  null,
+  {
+    onSelect: ({
+      rank,
+      suit,
+    }) => (dispatch) => dispatch({
+      type: 'TOGGLE_CARD',
+      rank,
+      suit,
+    }),
+  }
+)(Card);
