@@ -1,12 +1,6 @@
 import React from 'react';
 import Redux from 'redux';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import { connect } from 'react-redux';
 import '../views/HomeView/homeview.css';
-import { Card, Hand } from 'components/cards';
-import { Deck, deckGetHand } from 'components/cards';
-import _ from 'lodash';
 import { PlayingView } from './../routes/PlayingView/Containers/PlayingView.js';
 
 const Style = {

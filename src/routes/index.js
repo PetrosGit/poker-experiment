@@ -7,7 +7,7 @@ import { Route, IndexRoute } from 'react-router';
 // very easy to navigate to files regardless of how deeply nested
 // your current file is.
 import CoreLayout from 'layouts/CoreLayout/CoreLayout';
-import { HomeView } from './../redux/gameReducer.js';
+import { HomeView } from './../redux/HomeView.js';
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>

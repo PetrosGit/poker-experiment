@@ -7,7 +7,6 @@ import { ChangeCardsButton } from './ChangeCardsButton.js';
 import { ShowWinner } from './ShowWinner.js';
 import { NextRound } from './NextRound.js';
 import { Card, Hand } from './../../../components/cards';
-import { store } from './../../../redux/gameReducer.js';
 
 const Style = {
   container: {
