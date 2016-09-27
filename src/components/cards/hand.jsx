@@ -1,3 +1,4 @@
+
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import classes, {
@@ -27,9 +28,12 @@ export function Hand({ cards, onCardClick, isVisible = false }) {
     isVisible ?
     (<div className={className} style={style}>
       {cards.map((card) => (
-        <Card card={card} onClick={() => onCardClick(card.rank, card.suit, card.selected)} key={key(card)} />
+        <Card
+        card={card}
+        onClick={() => onCardClick(card.rank, card.suit, card.selected)}
+        key={key(card)} />
       ))}
-    </div>):
+    </div>) :
     (<div>
       <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
       <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>

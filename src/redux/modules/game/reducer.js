@@ -1,10 +1,6 @@
-import React from 'react';
-import Redux from 'redux';
+
 import { PokerHand } from '../../../components/cards/poker.js';
-import { changeCards } from '../actions/changeCards.js';
-import { createGame } from '../actions/createGame.js';
-import { toggleCard } from '../actions/toggleCard';
-import { showWinner } from '../actions/showWinner';
+import { changeCards, createGame, toggleCard, showWinner } from '../actions/index.js';
 
 const game = (state = {}, action) => {
     switch (action.type) {
