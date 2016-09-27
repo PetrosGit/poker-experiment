@@ -4,7 +4,6 @@ import Redux from 'redux';
 import { StartGame } from './../../HomeView/Containers/StartButton.js';
 import { EndGame } from './EndButton.js';
 import { ChangeCardsButton } from './ChangeCardsButton.js';
-import { PokerHand } from './../../../views/HomeView/cards/poker.js';
 import { ShowWinner } from './ShowWinner.js';
 import { NextRound } from './NextRound.js';
 import { Card, Hand } from './../../../components/cards';
@@ -25,23 +24,13 @@ const Style = {
   },
 };
 
-const onCardClick = (rank, suit, selected) => {
-  console.log(selected);
-  store.dispatch({
-    type: 'TOGGLE_CARD',
-    rank,
-    suit,
-    selected,
-  });
-};
-
-let PlayingView = ({ playerA, playerB, changeCards, visibility }) => (
+let PlayingView = ({ playerA, playerB, visibility }) => (
   playerA ?
   (
     <div>
       <div style={Style.table}>
         <Hand cards={playerB.hand} isVisible={visibility}/>
-        <Hand cards={playerA.hand} onCardClick={onCardClick} isVisible={true}/>
+        <Hand cards={playerA.hand} isVisible={true}/>
       </div>
       <ChangeCardsButton />
       <ShowWinner/>
@@ -51,7 +40,7 @@ let PlayingView = ({ playerA, playerB, changeCards, visibility }) => (
   ) : (<StartGame/>)
 );
 PlayingView = connect(
- ({ playerA, playerB, visibility }) => ({
+ ({ game: { playerA, playerB, visibility } }) => ({
     playerA,
     playerB,
     visibility,

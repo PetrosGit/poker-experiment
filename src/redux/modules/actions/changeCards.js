@@ -1,16 +1,17 @@
 import { Deck, deckGetHand } from './../../../components/cards/deck.js';
+import _ from 'lodash';
 
-const changeCards = () => {
-  let currentDeck = store.getState().deck;
-  let selectedCards = _.filter(store.getState().playerA.hand, (card) => (card.selected));
-  let unselectedCards = _.filter(store.getState().playerA.hand, (card) => (!card.selected));
+const changeCards = (state) => {
+  let currentDeck = state.deck;
+  let selectedCards = _.filter(state.playerA.hand, (card) => (card.selected));
+  let unselectedCards = _.filter(state.playerA.hand, (card) => (!card.selected));
   let newDeal = deckGetHand(currentDeck, selectedCards.length);
   let newHand = unselectedCards.concat(newDeal.hand);
   currentDeck = newDeal.deck;
   return {
-    ...store.getState(),
+    ...state,
     deck: currentDeck,
-    playerA: { ...store.getState().playerA, hand: newHand },
+    playerA: { ...state.playerA, hand: newHand },
     usedSwap: true,
   };
 };

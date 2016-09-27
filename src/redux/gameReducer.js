@@ -3,12 +3,12 @@ import Redux from 'redux';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { connect } from 'react-redux';
-import './../views/HomeView/homeview.css';
+import '../views/HomeView/homeview.css';
 import { Card, Hand } from 'components/cards';
 import { Deck, deckGetHand } from 'components/cards';
 import _ from 'lodash';
 import { PlayingView } from './../routes/PlayingView/Containers/PlayingView.js';
-import { PokerHand } from './../views/HomeView/cards/poker.js';
+import { PokerHand } from '../components/cards/poker.js';
 import { changeCards } from './modules/actions/changeCards.js';
 import { createGame } from './modules/actions/createGame.js';
 
@@ -61,13 +61,12 @@ const game = (state = {}, action) => {
       console.log(newHand);
       return { ...state, playerA: { ... state.playerA, hand: newHand } };
     case 'CHANGE_CARDS':
-      return changeCards();
+      return changeCards(state);
     default :
       return state;
   }
   };
 
-const store = createStore(game);
 class HomeView extends React.Component {
   constructor(props) {
     super(props);
@@ -75,14 +74,12 @@ class HomeView extends React.Component {
 
   render () {
     return (
-      <Provider store = {store}>
         <div style={Style.container}>
           <h1> Five Card Draw Poker </h1>
           <PlayingView/>
         </div>
-      </Provider>
     );
   }
 }
 
-export { HomeView, store, game };
+export { HomeView, game };

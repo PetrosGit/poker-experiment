@@ -8,7 +8,7 @@ let ChangeCardsButton = ({ changeCardsCall, usedSwap }) => (
   (<button onClick={changeCardsCall}>Swap</button>)
 );
 ChangeCardsButton = connect(
- ({ playerA, playerB, usedSwap }) => ({
+ ({ game: { playerA, playerB, usedSwap } }) => ({
     playerA,
     playerB,
     usedSwap,
