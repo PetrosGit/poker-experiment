@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router';
+
 const HeaderStyle = {
   display: 'inline-block',
   fontFamily: 'monospace',
@@ -14,9 +16,9 @@ const divStyle = {
 export function Header() {
   return (
     <div style = {divStyle}>
-      <a style = {HeaderStyle} >Home </a>
-      <a style = {HeaderStyle}>About Us </a>
-      <a style = {HeaderStyle}>Help</a>
+      <Link to="/" style = { HeaderStyle }>Home</Link>
+      <Link to="/AboutUs" style = { HeaderStyle }>AboutUs</Link>
+      <Link to="/Help" style = { HeaderStyle }>Help</Link>
     </div>
   );
 }

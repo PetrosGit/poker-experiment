@@ -1,5 +1,8 @@
+
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import  AboutUs  from './AboutUs/Components/AboutUs';
+import  Help  from './Help/Components/Help';
 
 // NOTE: here we're making use of the `resolve.root` configuration
 // option in webpack, which allows us to specify import paths as if
@@ -10,7 +13,15 @@ import CoreLayout from 'layouts/CoreLayout/CoreLayout';
 import { View } from './View.js';
 
 export default (store) => (
-  <Route path='/' component={CoreLayout}>
-    <IndexRoute component={View} />
-  </Route>
+  <Router history={hashHistory}>
+    <Route path='/' component={CoreLayout}>
+      <IndexRoute component={View} />
+    </Route>
+    <Route path="/AboutUs" component={CoreLayout}>
+      <IndexRoute component={AboutUs}/>
+    </Route>
+    <Route path="/Help" component={CoreLayout}>
+      <IndexRoute component={Help}/>
+    </Route>
+  </Router>
 );

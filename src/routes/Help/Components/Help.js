@@ -1,6 +1,7 @@
-/*import React from 'react';
 
-export Help = () =>(
+import React from 'react';
+
+const Help = () => (
   <div>
     <h3>Game Rules:</h3>
       <ul>
@@ -9,5 +10,6 @@ export Help = () =>(
         See rules <a href="https://en.wikipedia.org/wiki/Five-card_draw#House_rules">here</a></li>
       </ul>
   </div>
-)
-*/
+  );
+
+export default Help;
