@@ -2,7 +2,7 @@
 import React from 'react';
 import Redux from 'redux';
 import '../views/HomeView/homeview.css';
-import { PlayingView } from './../routes/PlayingView/Containers/PlayingView.js';
+import { PlayingView } from './PlayingView/Containers/PlayingView.js';
 
 const Style = {
       marginTop: '30px',
@@ -11,7 +11,7 @@ const Style = {
       marginLeft: '5%',
     };
 
-class HomeView extends React.Component {
+class View extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -26,4 +26,4 @@ class HomeView extends React.Component {
   }
 }
 
-export { HomeView };
+export { View };
