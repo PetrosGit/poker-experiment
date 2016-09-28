@@ -1,6 +1,7 @@
+
 import React, { PropTypes } from 'react';
 import '../../styles/core.scss';
-import { Header } from '../../routes/Header/index';
+import { Header } from './Header/Header';
 
 // Note: Stateless/function components *will not* hot reload!
 // react-transform *only* works on component classes.
