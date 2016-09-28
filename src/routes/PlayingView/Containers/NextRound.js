@@ -7,7 +7,7 @@ let NextRound = ({ onNextRound, visibility }) => (
   (<a></a>)
 );
 NextRound = connect(
-  ({ visibility }) => ({
+  ({ game: { visibility } }) => ({
     visibility,
   }),
   (dispatch) => ({
