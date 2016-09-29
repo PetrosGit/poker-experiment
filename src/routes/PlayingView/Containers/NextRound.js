@@ -12,7 +12,7 @@ NextRound = connect(
     visibility,
   }),
   (dispatch) => ({
-    onNextRound: () => dispatch({ type: 'START_GAME' }),
+    onNextRound: () => dispatch({ type: 'NEXT_ROUND' }),
   }),
 )(NextRound);
 

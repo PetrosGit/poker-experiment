@@ -1,18 +1,30 @@
 import { PokerHand } from '../../../components/cards/poker.js';
 
-const showWinner = (state) => {
-  let hand1 = new PokerHand(state.playerA.hand);
-  let hand2 = new PokerHand(state.playerB.hand);
-  console.log(hand1.order, hand2.order, state);
-  (hand1.order > hand2.order) ?
-    alert('YOU WIN!!!') :
-  (hand1.order == hand2.order) ?
-    alert('Draw') :
+const showWinner = ({ playerA, playerB }) => {
+  let aHand = new PokerHand(playerA.hand);
+  let bHand = new PokerHand(playerB.hand);
+  let chipsA = playerA.chips;
+  let chipsB = playerB.chips;
+  console.log(aHand.order, bHand.order, state);
+  if (aHand.order > bHand.order) {
+    alert('YOU WIN!!!');
+    chipsA = playerA.chips + 1;
+    chipsB = playerB.chips - 1;
+  } else if (aHand.order === bHand.order) {
+    alert('Draw');
+  } else {
     alert('You lose');
+    chipsA = playerA.chips - 1;
+    chipsB = playerB.chips + 1;
+  }
+
+  console.log(chipsA);
   return {
     ...state,
     visibility: true,
     usedSwap: true,
+    playerA: { ...playerA, chips: chipsA },
+    playerB: { ...playerB, chips: chipsB },
   };
 };
 

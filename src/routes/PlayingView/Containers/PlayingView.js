@@ -38,8 +38,9 @@ let PlayingView = ({ playerA, playerB, visibility }) => (
     </div>
   ) : (<StartGame/>)
 );
+
 PlayingView = connect(
- ({ game: { playerA, playerB, visibility } }) => ({
+  ({ game: { playerA, playerB, visibility } }) => ({
     playerA,
     playerB,
     visibility,

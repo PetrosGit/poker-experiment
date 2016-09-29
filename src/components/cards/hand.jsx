@@ -34,13 +34,10 @@ export function Hand({ cards, onCardClick, isVisible = false }) {
         key={key(card)} />
       ))}
     </div>) :
-    (<div>
-      <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
-      <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
-      <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
-      <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
-      <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
+    (<div className={className} style={style}>
+      {cards.map(() =>(
+        <div className={classNames(cardStyles.card, cardStyles.back)}>*</div>
+      ))}
     </div>)
-
   );
 };

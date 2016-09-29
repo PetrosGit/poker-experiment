@@ -1,6 +1,6 @@
 
 import { PokerHand } from '../../../components/cards/poker.js';
-import { changeCards, createGame, toggleCard, showWinner } from '../actions/index.js';
+import { changeCards, createGame, toggleCard, showWinner, nextRound } from '../actions/index.js';
 
 const game = (state = {}, action) => {
     switch (action.type) {
@@ -14,6 +14,8 @@ const game = (state = {}, action) => {
       return toggleCard(state, action);
     case 'CHANGE_CARDS':
       return changeCards(state);
+    case 'NEXT_ROUND':
+      return nextRound(state);
     default :
       return state;
   }
