@@ -8,7 +8,7 @@ const Style = {
       marginTop: '30px',
       width: '100%',
       justifyContent: 'center',
-      marginLeft: '5%',
+      textAlign: 'center',
     };
 
 class View extends React.Component {
