@@ -40,4 +40,5 @@ export function Hand({ cards, onCardClick, isVisible = false }) {
       ))}
     </div>)
   );
+  alert('aaaa');
 };
