@@ -1,6 +1,6 @@
 import { PokerHand } from '../../../components/cards/poker.js';
 
-const showWinner = ({ playerA, playerB }) => {
+const showWinner = ({ playerA, playerB, state }) => {
   let aHand = new PokerHand(playerA.hand);
   let bHand = new PokerHand(playerB.hand);
   let chipsA = playerA.chips;
