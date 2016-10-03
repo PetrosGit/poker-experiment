@@ -1,12 +1,19 @@
 
+import { connect } from 'react-redux';
 import React from 'react';
-import Redux from 'redux';
-import { SignIn } from './SignIn.js';
+import { SignIn } from './SignButton';
+import { PlayingView } from '../../PlayingView/Containers/PlayingView';
 
-let HomeView = () => (
-  <div>
-    <SignIn/>
-  </div>
+let HomeView = ({ login }) => (
+  login ?
+  (<PlayingView/>) :
+  (<SignIn/>)
 );
-export { SignIn };
-export { StartGame };
+HomeView = connect(
+  ({ user: { login } }) => ({
+    login,
+  }),
+  null,
+)(HomeView);
+
+export { HomeView };

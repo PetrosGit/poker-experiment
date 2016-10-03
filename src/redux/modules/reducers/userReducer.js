@@ -2,7 +2,7 @@
 const user = (state = {}, action) => {
     switch (action.type) {
       case 'SIGN_IN' :
-        return { login: true };
+        return { ...state, login: true };
       default :
         return state;
     }
