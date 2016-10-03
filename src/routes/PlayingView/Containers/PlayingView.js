@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import Redux from 'redux';
 import { StartGame } from './StartButton.js';
+import { Announcer } from './Announcer.js';
 import { EndGame } from './EndButton.js';
 import { ChangeCardsButton } from './ChangeCardsButton.js';
 import { ShowWinner } from './ShowWinner.js';
@@ -29,6 +30,7 @@ let PlayingView = ({ playerA, playerB, visibility }) => (
     <div>
       <div style={Style.table}>
         <Hand cards={playerB.hand} isVisible={visibility}/>
+        <Announcer/>
         <Hand cards={playerA.hand} isVisible={true}/>
       </div>
       <ChangeCardsButton />
