@@ -7,7 +7,7 @@ let ShowWinner = ({ onEndRound, visibility }) => (
   (<button onClick={onEndRound}>SHOW WINNER</button>)
 );
 ShowWinner = connect(
-  ({ visibility }) => ({
+  ({ game: { visibility } }) => ({
     visibility,
   }),
   (dispatch) => ({
