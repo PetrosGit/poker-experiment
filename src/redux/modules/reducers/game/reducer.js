@@ -1,6 +1,5 @@
 
-import { PokerHand } from '../../../components/cards/poker.js';
-import { changeCards, createGame, toggleCard, showWinner, nextRound } from '../actions/index.js';
+import { changeCards, createGame, toggleCard, showWinner, nextRound } from '../actions/game/index.js';
 
 const game = (state = {}, action) => {
     switch (action.type) {

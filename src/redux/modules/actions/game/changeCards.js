@@ -1,4 +1,4 @@
-import { Deck, deckGetHand } from './../../../components/cards/deck.js';
+import { Deck, deckGetHand } from './../../../../components/cards/deck.js';
 import _ from 'lodash';
 
 const changeCards = (state) => {
