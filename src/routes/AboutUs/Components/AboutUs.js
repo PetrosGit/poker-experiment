@@ -8,7 +8,7 @@ let AboutUs = () => (
         <p style={Style.contributors}>Δημήτρης Λιβάς</p>
         <h3 style={Style.contributorTitle}>Programmers - Slaves</h3>
         <p style={Style.contributors}>Χρήστος Τσόπελας</p>
-        <p style={Style.contributors}>Πέτρος ΕΠΙΘΕΤΟ !!!!</p>
+        <p style={Style.contributors}>Πέτρος Γκίκας</p>
         <p style={Style.contributors}>Μενέλαος Ζέτας</p>
       </div>
   );
