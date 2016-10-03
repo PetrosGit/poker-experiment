@@ -8,6 +8,7 @@ import { ChangeCardsButton } from './ChangeCardsButton.js';
 import { ShowWinner } from './ShowWinner.js';
 import { NextRound } from './NextRound.js';
 import { Card, Hand } from './../../../components/cards';
+import { SignIn } from './SignButton.js';
 
 const Style = {
   container: {
@@ -38,7 +39,12 @@ let PlayingView = ({ playerA, playerB, visibility }) => (
       <NextRound/>
       <EndGame/>
     </div>
-  ) : (<StartGame/>)
+  ) : (
+    <div>
+      <StartGame/>
+      <SignIn/>
+    </div>
+  )
 );
 
 PlayingView = connect(
