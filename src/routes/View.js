@@ -2,7 +2,7 @@
 import React from 'react';
 import Redux from 'redux';
 import '../views/HomeView/homeview.css';
-import { PlayingView } from './PlayingView/Containers/PlayingView.js';
+import { HomeView } from './HomeView/Containers/HomeView.js';
 
 const Style = {
       marginTop: '30px',
@@ -20,7 +20,7 @@ class View extends React.Component {
     return (
         <div style={Style}>
           <h1> Five Card Draw Poker </h1>
-          <PlayingView/>
+          <HomeView/>
         </div>
     );
   }

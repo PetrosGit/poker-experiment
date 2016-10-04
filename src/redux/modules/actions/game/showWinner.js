@@ -1,5 +1,5 @@
 
-import { PokerHand } from '../../../components/cards/poker.js';
+import { PokerHand } from '../../../../components/cards/poker.js';
 
 const unselect = (card) => {
   card.selected = false;
