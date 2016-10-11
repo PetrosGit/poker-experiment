@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 import React from 'react';
 
-let Announcer = ({ announce, winner }) => (
-  <div style = { Style.announcement }>
-    {winner}
-  </div>
+let Announcer = ({ announce, winner }) => {
+  if (winner) return (
+    <div style = { Style.announcementAfter }>
+      {winner}
+    </div>);
+  return (<div style = { Style.anouncementBefore }></div>);
 );
 Announcer = connect(
   ({ game: { winner } }) => ({
@@ -16,12 +18,15 @@ Announcer = connect(
 const Style = {
   container: {
   },
-  announcement: {
+  announcementAfter: {
     textAlign: 'center',
     fontFamily: 'Arial',
     fontSize: 26,
     margin: 30,
     font: 'bold',
+  },
+  anouncementBefore: {
+    margin: 97,
   },
 };
 
