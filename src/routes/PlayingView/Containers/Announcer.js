@@ -7,7 +7,8 @@ let Announcer = ({ announce, winner }) => {
       {winner}
     </div>);
   return (<div style = { Style.anouncementBefore }></div>);
-);
+};
+
 Announcer = connect(
   ({ game: { winner } }) => ({
     winner,
