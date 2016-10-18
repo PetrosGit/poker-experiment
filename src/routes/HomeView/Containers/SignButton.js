@@ -9,10 +9,10 @@ let SignIn = ({ onSubmit }) => (
            <label for="userID">User ID:</label>
            <input type="text" id="userID" name="userID" placeholder="ID" value={userID}/>
            <br/>
-           <label for="password">Last Name:</label>
-           <input type="text" id="password" name="password" placeholder="Password" value={password}/>
+           <label for="password">Password:</label>
+           <input type="password" id="password" name="password" placeholder="Password" value={password}/>
            <br />
-           <input type="submit" value="Post" />
+           <input type="submit" value="Sign In" />
         </fieldset>
      </form>
   );
