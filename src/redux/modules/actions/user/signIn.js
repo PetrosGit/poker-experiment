@@ -6,8 +6,8 @@ const users = {
   christos: '12345',
   menelaos: '123',
 };
-let validation = false;
 const SignIN = (userID, password) => {
+    let validation = false;
     let error = 'Wrong ID';
     _.forEach(users, (value, key) => {
       if (userID == key) {

@@ -15,6 +15,8 @@ const game = (state = {}, action) => {
       return changeCards(state);
     case 'NEXT_ROUND':
       return nextRound(state);
+    case 'LOG_OUT' :
+      return {};
     default :
       return state;
   }
