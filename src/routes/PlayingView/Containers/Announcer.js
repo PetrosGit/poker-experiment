@@ -27,7 +27,7 @@ const Style = {
     font: 'bold',
   },
   anouncementBefore: {
-    margin: 97,
+    margin: 96,
   },
 };
 
