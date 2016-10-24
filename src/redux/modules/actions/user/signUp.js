@@ -7,20 +7,28 @@ const addUser = (users, userID, password) => {
   console.log(users);
 };
 
-const SignUp = (userID, password, passwordVer) => {
+let userExists = false;
+const SignUP = (state, userID, password, passwordVer) => {
     _.forEach(users, (value, key) => {
       if (userID == key) {
         alert('Invalid UserName');
+        userExists = true;
       }
+
+      return userExists;
     });
-    console.log(password, passwordVer);
+    if (userExists) {
+      return { ...state };
+    };
+
     if (password !== passwordVer) {
-      alert('Pass');
-      return { UserState: 'Register' };
+      alert('Passwords don`t match');
+      return { ...state };
     }
+
     addUser(users, userID, password);
     alert('Congradulations!');
     return { UserState: 'LoggedIn' };
   };
 
-export { SignUp };
+export { SignUP };

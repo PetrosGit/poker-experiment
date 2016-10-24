@@ -4,8 +4,9 @@ import React from 'react';
 import { SignIn } from './SignInButton';
 import { SignUp } from './SignUpButton';
 import { LogOut } from './LogoutButton';
-import { Register } from './registerButton';
+import { Register } from './RegisterButton';
 import { PlayingView } from '../../PlayingView/Containers/PlayingView';
+import { CancelReg } from './CancelRegistration';
 
 let HomeView = ({ UserState }) => {
   switch (UserState){
@@ -17,7 +18,12 @@ let HomeView = ({ UserState }) => {
     </div>
     );
   case 'Register':
-    return (<SignUp/>);
+    return (
+      <div>
+        <SignUp/>
+        <CancelReg/>
+      </div>
+    );
   default:
     return (
     <div>
