@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import { users } from './userList';
 
-const SignIN = (userID, password) => {
-    console.log(users);
+const SignIN = (state, userID, password) => {
     let validation = false;
     let error = 'Wrong ID';
     _.forEach(users, (value, key) => {
@@ -15,6 +14,7 @@ const SignIN = (userID, password) => {
       };
 
     });
+    console.log(validation);
     if (validation) {
       return ({ UserState: 'LoggedIn' });
     };
